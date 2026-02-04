@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>February - Sadikshya</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap');
+
+    body {
+      margin: 0;
+      background: #000;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+
+    #canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .hero-img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #ff4081;
+      box-shadow: 0 0 20px rgba(255, 64, 129, 0.6);
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      color: #ff4081;
+      font-size: 32px;
+      margin: 10px 0 5px;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      opacity: 0.7;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .links a {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      padding: 18px 25px;
+      border-radius: 20px;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .links a:hover {
+      background: rgba(255, 64, 129, 0.15);
+      border-color: #ff4081;
+      transform: translateY(-3px);
+    }
+
+    .arrow {
+      color: #ff4081;
+      font-size: 18px;
+    }
+
+    .signature {
+      margin-top: 40px;
+      color: #ff4081;
+      font-size: 14px;
+      opacity: 0.8;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+
+  <div class="container">
+    <img src="distance.png" class="hero-img" alt="Us">
+    <h1>February</h1>
+    <p class="subtitle">A Journey of 8 Days</p>
+    
+    <div class="links">
+      <a href="days/07.html"><span>🌹 Rose Day</span> <span class="arrow">→</span></a>
+      <a href="days/08.html"><span>💍 Propose Day</span> <span class="arrow">→</span></a>
+      <a href="days/09.html"><span>🍫 Chocolate Day</span> <span class="arrow">→</span></a>
+      <a href="days/10.html"><span>🧸 Teddy Day</span> <span class="arrow">→</span></a>
+      <a href="days/11.html"><span>🤝 Promise Day</span> <span class="arrow">→</span></a>
+      <a href="days/12.html"><span>🫂 Hug Day</span> <span class="arrow">→</span></a>
+      <a href="days/13.html"><span>💋 Kiss Day</span> <span class="arrow">→</span></a>
+      <a href="days/14.html"><span>❤️ Valentine's Day</span> <span class="arrow">→</span></a>
+    </div>
+    
+    <p class="signature">— Golumolu</p>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let hearts = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Heart {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + 100;
+        this.size = Math.random() * 25 + 15; // Pro size
+        this.speed = Math.random() * 1.5 + 0.5;
+        this.opacity = Math.random() * 0.4 + 0.1;
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.opacity;
+        ctx.fillStyle = '#ff4081';
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y + this.size / 4);
+        ctx.bezierCurveTo(this.x + this.size / 2, this.y - this.size / 2, this.x + this.size, this.y, this.x, this.y + this.size);
+        ctx.bezierCurveTo(this.x - this.size, this.y, this.x - this.size / 2, this.y - this.size / 2, this.x, this.y + this.size / 4);
+        ctx.fill();
+        ctx.restore();
+      }
+      update() {
+        this.y -= this.speed;
+        this.x += Math.sin(this.y / 60);
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (hearts.length < 15) hearts.push(new Heart());
+      hearts.forEach((h, i) => {
+        h.update();
+        h.draw();
+        if (h.y + h.size < -50) hearts.splice(i, 1);
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
