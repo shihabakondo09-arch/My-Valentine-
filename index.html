@@ -3,173 +3,136 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>February - Sadikshya</title>
+  <title>Our Valentine Journey</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap');
-
     body {
-      margin: 0;
-      background: #000;
-      color: #fff;
-      font-family: 'Poppins', sans-serif;
-      overflow-x: hidden;
-      display: flex;
-      justify-content: center;
-      padding-top: 50px;
-      padding-bottom: 50px;
+      margin: 0; background: #050505; color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex; justify-content: center; padding: 50px 0;
+      overflow-x: hidden; min-height: 100vh;
+    }
+    #canvas { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
+    .container { position: relative; z-index: 2; width: 90%; max-width: 400px; text-align: center; }
+    .hero-img { width: 140px; height: 140px; border-radius: 50%; border: 3px solid #ff4081; box-shadow: 0 0 30px rgba(255, 64, 129, 0.5); margin-bottom: 15px; }
+    h1 { color: #ff4081; font-size: 32px; margin: 10px 0; }
+    .links { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+    
+    .day-btn {
+      background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
+      padding: 18px 25px; border-radius: 15px; color: #fff;
+      border: 1px solid rgba(255, 64, 129, 0.2); cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: 0.3s; position: relative; overflow: hidden;
     }
 
-    #canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 1;
-      pointer-events: none;
-    }
+    /* Lock Style */
+    .day-btn.locked { opacity: 0.4; cursor: not-allowed; filter: grayscale(1); }
+    .day-btn.active:hover { background: rgba(255, 64, 129, 0.2); border-color: #ff4081; transform: scale(1.02); }
 
-    .container {
-      position: relative;
-      z-index: 2;
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
+    #day-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.95); z-index: 100;
+      display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px);
     }
-
-    .hero-img {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #ff4081;
-      box-shadow: 0 0 20px rgba(255, 64, 129, 0.6);
-      margin-bottom: 10px;
-    }
-
-    h1 {
-      color: #ff4081;
-      font-size: 32px;
-      margin: 10px 0 5px;
-      font-weight: 600;
-    }
-
-    .subtitle {
-      opacity: 0.7;
-      font-size: 14px;
-      margin-bottom: 30px;
-    }
-
-    .links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .links a {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      padding: 18px 25px;
-      border-radius: 20px;
-      color: #fff;
-      text-decoration: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 15px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      transition: 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .links a:hover {
-      background: rgba(255, 64, 129, 0.15);
-      border-color: #ff4081;
-      transform: translateY(-3px);
-    }
-
-    .arrow {
-      color: #ff4081;
-      font-size: 18px;
-    }
-
-    .signature {
-      margin-top: 40px;
-      color: #ff4081;
-      font-size: 14px;
-      opacity: 0.8;
-      text-align: left;
-    }
+    .day-card { width: 85%; max-width: 350px; background: #111; padding: 30px; border-radius: 25px; border: 1px solid #ff4081; text-align: center; }
+    .day-desc { line-height: 1.6; margin: 20px 0; font-size: 16px; }
+    .back-btn { background: #ff4081; border: none; color: #fff; padding: 10px 25px; border-radius: 20px; cursor: pointer; }
   </style>
 </head>
 <body>
-  <canvas id="canvas"></canvas>
 
-  <div class="container">
-    <img src="distance.png" class="hero-img" alt="Us">
-    <h1>February</h1>
-    <p class="subtitle">A Journey of 8 Days</p>
-    
-    <div class="links">
-      <a href="days/07.html"><span>🌹 Rose Day</span> <span class="arrow">→</span></a>
-      <a href="days/08.html"><span>💍 Propose Day</span> <span class="arrow">→</span></a>
-      <a href="days/09.html"><span>🍫 Chocolate Day</span> <span class="arrow">→</span></a>
-      <a href="days/10.html"><span>🧸 Teddy Day</span> <span class="arrow">→</span></a>
-      <a href="days/11.html"><span>🤝 Promise Day</span> <span class="arrow">→</span></a>
-      <a href="days/12.html"><span>🫂 Hug Day</span> <span class="arrow">→</span></a>
-      <a href="days/13.html"><span>💋 Kiss Day</span> <span class="arrow">→</span></a>
-      <a href="days/14.html"><span>❤️ Valentine's Day</span> <span class="arrow">→</span></a>
+<canvas id="canvas"></canvas>
+
+<div class="container" id="main-ui">
+  <img src="distance.png" class="hero-img" alt="Us">
+  <h1>February Days</h1>
+  <div class="links" id="btn-container">
     </div>
-    
-    <p class="signature">— Golumolu</p>
+  <p style="margin-top:40px; color:#ff4081; font-style:italic;">— Golumolu</p>
+</div>
+
+<div id="day-overlay">
+  <div class="day-card">
+    <div id="day-icon" style="font-size:60px;"></div>
+    <h2 id="day-title" style="color:#ff4081;"></h2>
+    <p id="day-desc" class="day-desc"></p>
+    <button class="back-btn" onclick="closeDay()">Close</button>
   </div>
+</div>
 
-  <script>
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    let hearts = [];
+<script>
+  const dayData = {
+    7: { icon: '🌷', title: 'Rose Day', desc: "If I could give you a tulip for every smile you bring to me, I’d give you a whole garden. If I had a way, I’d rename this Rose Day as Tulip Day just for you. Happy Rose Day, cutie! 🌷😘" },
+    8: { icon: '💍', title: 'Propose Day', desc: "I tried to write a message as beautiful as you, but words fail… so I’ll just ask—will you be my forever? Saying yes to me may result in endless smiles, hugs, and loves. Will you take the risk? 😘" },
+    9: { icon: '🍫', title: 'Chocolate Day', desc: "Just like chocolate melts in your mouth, my heart melts every time I think of you. Life is sweet, but it’s sweeter with you. Happy Chocolate Day, my sweetheart! ❤️" },
+    10: { icon: '🧸', title: 'Teddy Day', desc: "A teddy might be soft and cuddly, but I promise my hugs are way better. Happy Teddy Day! 😘" },
+    11: { icon: '🤝', title: 'Promise Day', desc: "I promise to hold your hand through every storm, to celebrate every joy, and to love you more with each passing day. I promise to be the shadow that never leaves you. Happy Promise Day, my love. ❤️" },
+    12: { icon: '🫂', title: 'Hug Day', desc: "I wish I could wrap you in my arms forever. If I could, I’d hug you across every distance, every moment, every heartbeat. Happy Hug Day 🫂" },
+    13: { icon: '💋', title: 'Kiss Day', desc: "I’ve saved my first kiss for you, and I pray that you’ll be my first kiss. Happy kiss day 💋" },
+    14: { icon: '❤️', title: 'Valentine\'s Day', desc: "I don’t know how we came together, but it feels like our souls have become one. Maybe it wasn’t a coincidence—perhaps the universe made us soulmates. I don’t know for sure if this is real, and I don’t know if I’m wrong… but I do know this: I love you deeply, more than words can ever express. Every heartbeat, every thought, every part of me belongs to you. You are my home, my peace, my forever, and I can’t imagine a life without you in it. Happy Valentine’s Day, my love. ❤️✨"}
+  };
 
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
+  function renderButtons() {
+    const container = document.getElementById('btn-container');
+    const today = new Date().getDate();
+    const currentMonth = new Date().getMonth() + 1; // February is 2
 
-    class Heart {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = canvas.height + 100;
-        this.size = Math.random() * 25 + 15; // Pro size
-        this.speed = Math.random() * 1.5 + 0.5;
-        this.opacity = Math.random() * 0.4 + 0.1;
+    for (let day = 7; day <= 14; day++) {
+      const isLocked = (currentMonth < 2 || (currentMonth === 2 && today < day));
+      const btn = document.createElement('button');
+      btn.className = `day-btn ${isLocked ? 'locked' : 'active'}`;
+      btn.innerHTML = `<span>${dayData[day].icon} ${dayData[day].title}</span> <span>${isLocked ? '🔒' : '→'}</span>`;
+      
+      if (!isLocked) {
+        btn.onclick = () => openDay(day);
+      } else {
+        btn.onclick = () => alert("No Rush bby ! Wait for the right day. 😉");
       }
-      draw() {
-        ctx.save();
-        ctx.globalAlpha = this.opacity;
-        ctx.fillStyle = '#ff4081';
-        ctx.beginPath();
-        ctx.moveTo(this.x, this.y + this.size / 4);
-        ctx.bezierCurveTo(this.x + this.size / 2, this.y - this.size / 2, this.x + this.size, this.y, this.x, this.y + this.size);
-        ctx.bezierCurveTo(this.x - this.size, this.y, this.x - this.size / 2, this.y - this.size / 2, this.x, this.y + this.size / 4);
-        ctx.fill();
-        ctx.restore();
-      }
-      update() {
-        this.y -= this.speed;
-        this.x += Math.sin(this.y / 60);
-      }
+      container.appendChild(btn);
     }
+  }
 
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (hearts.length < 15) hearts.push(new Heart());
-      hearts.forEach((h, i) => {
-        h.update();
-        h.draw();
-        if (h.y + h.size < -50) hearts.splice(i, 1);
-      });
-      requestAnimationFrame(animate);
+  function openDay(day) {
+    const data = dayData[day];
+    document.getElementById('day-icon').innerText = data.icon;
+    document.getElementById('day-title').innerText = data.title;
+    document.getElementById('day-desc').innerText = data.desc;
+    document.getElementById('day-overlay').style.display = 'flex';
+  }
+
+  function closeDay() { document.getElementById('day-overlay').style.display = 'none'; }
+
+  // Tulip Animation Logic
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  let tulips = [];
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  window.addEventListener('resize', resize);
+  resize();
+
+  class Tulip {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = canvas.height + 50;
+      this.speed = Math.random() * 1 + 0.5;
+      this.size = Math.random() * 20 + 20;
     }
-    animate();
-  </script>
+    draw() { ctx.font = `${this.size}px serif`; ctx.fillText('🌷', this.x, this.y); }
+    update() { this.y -= this.speed; }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if(tulips.length < 10) tulips.push(new Tulip());
+    tulips.forEach((t, i) => {
+      t.update(); t.draw();
+      if(t.y < -50) tulips.splice(i, 1);
+    });
+    requestAnimationFrame(animate);
+  }
+
+  renderButtons();
+  animate();
+</script>
 </body>
 </html>
